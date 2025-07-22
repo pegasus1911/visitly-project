@@ -11,8 +11,14 @@ router.get('/search', async(req, res) => {
         return []
     }
     const cities = await City.find({
-        name: new RegExp(query, 'i')
+        name: new RegExp(query, 'i'),
     }).limit(10)
+    res.json(cities)
+})
+router.get('/:id',async(req,res)=>{
+    const cityId=req.params.id
+    const city= await City.findById(cityId)
+    res.json(city)
 })
 
 module.exports = router
