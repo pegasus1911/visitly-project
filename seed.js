@@ -1,0 +1,15 @@
+const dotenv = require('dotenv')
+const mongoose = require("mongoose")
+dotenv.config()
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => console.log('mognos is connected'))
+    .catch((err) => console.error('mongoss has err' + err))
+const City = require('./models/City')
+const cities = require("./cities.json")
+
+City.insertMany(cities)
+    .then(() => {
+        console.log('cities has been inserted')
+        mongoose.disconnect()
+    })
+    .catch(err => console.error('cities were not insertedd' + err))
