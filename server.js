@@ -5,16 +5,20 @@ const morgan=require('morgan')
 
 
 const cityRoutes=require('./routes/cities')
+const visitRoutes=require('./routes/visits')
 
 
 dotenv.config()
 const app=express()
+app.set('view engine', 'ejs');
+app.set('views', './views');
 const PORT=process.env.PORT||3000
 
 app.use(express.json())
 app.use(morgan('dev'))
 app.use(express.urlencoded({ extended: true }))     
 app.use('/cities',cityRoutes)
+app.use('/',visitRoutes)
 
 mongoose.connect(process.env.MONGO_URI)
     .then(()=> console.log('mongo db has connectedd'))
