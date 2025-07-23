@@ -3,6 +3,8 @@ const mongoose=require('mongoose')
 const dotenv=require('dotenv')
 const morgan=require('morgan')
 const methodOverride=require('method-override')
+const session=require('express-session')
+
 
 const cityRoutes=require('./routes/cities')
 const visitRoutes=require('./routes/visits')
@@ -17,6 +19,11 @@ app.use(express.json())
 app.use(morgan('dev'))
 app.use(express.urlencoded({ extended: true }))     
 app.use(methodOverride('_method'))
+app.use(session({
+    secret:'secret-key',
+    resave:false,
+    saveUninitialized:true,
+})) 
 app.use('/cities',cityRoutes)
 app.use('/',visitRoutes)
 app.use('/',userRoutes)

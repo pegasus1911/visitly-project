@@ -15,11 +15,15 @@
         <strong>Description:</strong> <%= visit.description %><br>
         <strong>Rating:</strong> <%= visit.rating %><br>
         <strong>Visit Type:</strong> <%= visit.visitType %><br>
+        <strong>author:</strong> <%= visit.user.username%><br>
         <form action="/visits/<%= visit._id %>?_method=DELETE" method="POST">
           <button type="submit">Delete Visit</button>
         </form>
       </li>
     <% }) %>
   </ul>
+  <form action="/logout" method="POST">
+    <button type="submit">Log Out</button>
+  </form>
 </body>
 </html>
