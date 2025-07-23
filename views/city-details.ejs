@@ -4,13 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= city.name %> - Visits</title>
+  <link rel="stylesheet" href="/stylesheet/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/cities/search-page">Visitly</a>
+    <a class="navbar-brand d-flex align-items-center gap-2" href="/cities/search-page">
+      <img src="/images/logo.jpg" alt="Visitly Logo" width="30" height="30" class="rounded-circle">
+      Visitly
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -29,30 +33,43 @@
   </div>
 </nav>
 
-  <h1><%= city.name %> - Visits</h1>
-  <a href="/cities/<%= city._id %>/add-visit">Add another visit</a>
+<div class="container py-4">
+  <h1 class="text-center mb-4"><%= city.name %> - Visits</h1>
+  <a href="/cities/<%= city._id %>/add-visit" class="btn btn-success mb-3">Add another visit</a>
 
-  <ul>
-    <% visits.forEach(visit => { %>
-      <li>
-        <strong>Author:</strong> <%= visit.user.username%><br>
-        <strong>Rating:</strong> <%= visit.rating %><br>
-        <strong>Visit Type:</strong> <%= visit.visitType %><br>
-        <strong>Description:</strong> <%= visit.description %><br>
-        <strong>Date in:  </strong><%= visit.dateIn.toDateString()%><br>
-        <strong>Date out: </strong><%= visit.dateOut.toDateString()%><br>
+  <% visits.forEach(visit => { %>
+    <div class="card mb-3 shadow-sm">
+      <div class="card-body">
+<div class="d-flex align-items-center mb-2">
+  <div class="profile-circle"><%= visit.user.username[0].toUpperCase() %></div>
+  <h5 class="mb-0 ms-2"><%= visit.user.username %></h5>
+</div>
+        <h6 class="card-subtitle mb-2 text-muted">
+          <%= visit.dateIn.toDateString() %> – <%= visit.dateOut.toDateString() %>
+        </h6>
+        <p class="card-text">
+          <!-- <strong>Rating:</strong> <%= visit.rating %><br> -->
+           <strong>Rating:</strong> <%= '⭐'.repeat(visit.rating) %> (<%= visit.rating %>)<br>
+          <!-- <strong>Visit Type:</strong> <%= visit.visitType %><br> -->
+           <span class="badge bg-info text-dark"><%= visit.visitType %></span><br>
+          <strong>Description:</strong><br>
+          <%= visit.description %>
+          <form class="mt-3">
+  <input type="text" class="form-control" placeholder="Add a comment..." disabled>
+</form>
+
+        </p>
         <% if (visit.user._id.toString() === session.userId) { %>
-  <form action="/visits/<%= visit._id %>?_method=DELETE" method="POST">
-    <button type="submit">Delete Visit</button>
-  </form>
-  <button><a href="/visits/<%= visit._id %>/edit">Edit Visit</a></button>
-<% } %>
+          <form action="/visits/<%= visit._id %>?_method=DELETE" method="POST" class="d-inline">
+            <button type="submit" class="btn btn-danger btn-sm me-2"> Delete</button>
+          </form>
+          <a href="/visits/<%= visit._id %>/edit" class="btn btn-outline-primary btn-sm"> Edit</a>
+        <% } %>
+      </div>
+    </div>
+  <% }) %>
+</div>
 
-      </li>
-    <% }) %>
-  </ul>
-  <form action="/logout" method="POST">
-    <button type="submit">Log Out</button>
-  </form>
+
 </body>
 </html>

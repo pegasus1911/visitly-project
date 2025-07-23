@@ -7,16 +7,16 @@ const cities = require('./cities.json');
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
-    console.log('✅ MongoDB connected');
+    console.log('MongoDB connected');
     return City.deleteMany({});
   })
   .then(() => {
     return City.insertMany(cities);
   })
   .then(() => {
-    console.log('✅ Cities inserted successfully');
+    console.log('Cities inserted successfully');
     mongoose.disconnect();
   })
   .catch(err => {
-    console.error('❌ Error inserting cities:', err);
+    console.error('Error inserting cities:', err);
   });
