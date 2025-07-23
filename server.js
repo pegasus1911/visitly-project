@@ -33,7 +33,7 @@ mongoose.connect(process.env.MONGO_URI)
     .catch((err)=>console.error('unfirtuneatly mongo has not been connected'+err))
 
 app.get('/',(req,res)=>{
-    res.send('the server is alive?lol')
+    res.redirect('./login')
 })
 
 app.listen(PORT,()=>{

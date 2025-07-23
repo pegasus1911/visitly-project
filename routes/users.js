@@ -13,7 +13,7 @@ router.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({ username, password: hashedPassword });
     await newUser.save();
-    res.send('cool we registered u successfully');
+    res.redirect('/login');
   } catch (error) {
     console.error('Registration error:', error);
     res.status(500).send('oops, sorry there is an eroorr in registereing u');
@@ -38,7 +38,8 @@ router.post('/login', async (req, res) => {
     }
 
     req.session.userId = user._id;
-    res.send('Login successful');
+    // res.send('Login successful');
+    res.redirect('/cities/search-page');
   } catch (err) {
     console.error('Login error:', err);
     res.status(500).send('Error logging in'+err);

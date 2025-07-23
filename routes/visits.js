@@ -33,4 +33,29 @@ router.delete('/visits/:id', requireLogin, async (req, res) => {
         res.status(500).send('Internal server error');
     }
 });
+router.get('/visits/:id/edit', requireLogin, async (req, res) => {
+  const visit = await Visit.findById(req.params.id).populate('city');
+
+  if (!visit) return res.status(404).send('Visit not found');
+  if (!visit.user.equals(req.session.userId)) {
+    return res.status(403).send('Not allowed to edit this visit');
+  }
+
+  res.render('edit-visit', { visit });
+});
+router.put('/visits/:id', requireLogin, async (req, res) => {
+  const visit = await Visit.findById(req.params.id);
+  if (!visit) return res.status(404).send('Visit not found');
+  if (!visit.user.equals(req.session.userId)) {
+    return res.status(403).send('Not allowed to edit this visit');
+  }
+  const { description, rating, visitType, dateIn, dateOut } = req.body;
+  visit.description = description;
+  visit.rating = rating;
+  visit.visitType = visitType;
+  visit.dateIn = dateIn;
+  visit.dateOut = dateOut;
+  await visit.save();
+  res.redirect('/cities/' + visit.city);
+});
 module.exports = router;
