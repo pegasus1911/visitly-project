@@ -2,7 +2,7 @@ const express=require('express')
 const mongoose=require('mongoose')
 const dotenv=require('dotenv')
 const morgan=require('morgan')
-
+const methodOverride=require('method-override')
 
 const cityRoutes=require('./routes/cities')
 const visitRoutes=require('./routes/visits')
@@ -17,6 +17,7 @@ const PORT=process.env.PORT||3000
 app.use(express.json())
 app.use(morgan('dev'))
 app.use(express.urlencoded({ extended: true }))     
+app.use(methodOverride('_method'))
 app.use('/cities',cityRoutes)
 app.use('/',visitRoutes)
 

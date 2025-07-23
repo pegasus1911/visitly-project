@@ -17,4 +17,9 @@ router.post('/visits', async(req,res)=>{
         res.status(500).send('there is an errowr while saving ur visit')
     }
 })
+router.delete('/visits/:id', async(req,res)=>{
+    const visitId=req.params.id
+    const visit=await Visit.findByIdAndDelete(visitId)
+    res.redirect('/cities/'+visit.city)
+})
 module.exports = router;

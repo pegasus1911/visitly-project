@@ -20,7 +20,9 @@ router.get('/:id',async(req,res)=>{
     const cityId=req.params.id
     const city= await City.findById(cityId)
     const visits=await Visit.find({ city : cityId})
-    res.json({city,visits})
+    // res.json({city,visits})
+    res.render('city-details', { city, visits })
+
 
 
 })
