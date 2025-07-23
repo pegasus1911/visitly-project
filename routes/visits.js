@@ -1,6 +1,8 @@
 const express=require('express')
 const Visit=require('../models/Visit')
 const City=require('../models/City')
+const User=require('../models/User')
+
 const router=express.Router()
 
 router.post('/visits', async(req,res)=>{

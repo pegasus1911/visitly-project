@@ -6,8 +6,7 @@ const methodOverride=require('method-override')
 
 const cityRoutes=require('./routes/cities')
 const visitRoutes=require('./routes/visits')
-
-
+const userRoutes=require('./routes/users')
 dotenv.config()
 const app=express()
 app.set('view engine', 'ejs');
@@ -20,6 +19,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 app.use('/cities',cityRoutes)
 app.use('/',visitRoutes)
+app.use('/',userRoutes)
 
 mongoose.connect(process.env.MONGO_URI)
     .then(()=> console.log('mongo db has connectedd'))

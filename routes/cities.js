@@ -3,6 +3,8 @@ const express = require('express')
 const router = express.Router()
 const City = require('../models/City')
 const Visit=require('../models/Visit')
+const User=require('../models/User')
+
 router.get('/', (req, res) => {
     res.send('cities rout is working')
 })
