@@ -5,7 +5,6 @@ const Visit = require('../models/Visit');
 const User = require('../models/User');
 const requireLogin = require('../middelware/auth');
 
-// Basic check route
 router.get('/', (req, res) => {
   res.send('cities route is working');
 });
@@ -31,7 +30,6 @@ router.get('/search', requireLogin, async (req, res) => {
 });
 
 
-// View city and visits
 router.get('/:id', requireLogin, async (req, res) => {
   try {
     const cityId = req.params.id;
@@ -47,7 +45,6 @@ router.get('/:id', requireLogin, async (req, res) => {
   }
 });
 
-// Add visit form
 router.get('/:id/add-visit', requireLogin, async (req, res) => {
   try {
     const city = await City.findById(req.params.id);

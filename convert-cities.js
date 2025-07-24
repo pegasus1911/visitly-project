@@ -1,7 +1,7 @@
 const fs = require('fs');
 
-// Load the original country-to-cities JSON
-const data = require('./all-countries-and-cities-json/countriesToCities.json'); // make sure this path is correct
+
+const data = require('./all-countries-and-cities-json/countriesToCities.json'); 
 
 const cities = [];
 
@@ -11,6 +11,5 @@ for (const country in data) {
   });
 }
 
-// Save new cities array to cities.json
 fs.writeFileSync('cities.json', JSON.stringify(cities, null, 2));
-console.log('✅ cities.json created successfully!');
+console.log(' cities.json created successfully!');

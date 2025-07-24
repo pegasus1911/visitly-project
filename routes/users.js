@@ -38,7 +38,6 @@ router.post('/login', async (req, res) => {
     }
 
     req.session.userId = user._id;
-    // res.send('Login successful');
     res.redirect('/cities/search-page');
   } catch (err) {
     console.error('Login error:', err);
@@ -50,14 +49,5 @@ router.post('/logout',(req,res)=>{
       req.session.destroy(() => {
         res.redirect('/login')
     })
-  // req.session.destroy(err=> {
-  //   if(err){
-  //     return res.send('theres is an error logging u out')
-  //   }
-  //   else{
-  //     res.redirect('/login')
-  //     res.send(' u have been logged out succcessfully')
-  //   }
-  // })
 })
 module.exports = router;
